@@ -8,16 +8,16 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Usuario {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String nome;
+    private String name;
     private String email;
-    private String senha;
-    private String confirmaSenha;
-    
+    private String password;
+    private String confirmPassword;
+
     
 }
