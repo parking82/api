@@ -15,7 +15,7 @@ import com.parking82.api.model.Client;
 import com.parking82.api.services.ClientServices;
 
 @RestController
-@RequestMapping("/cadastro/cliente")
+@RequestMapping("/clientes")
 public class ClientController {
     
     private ClientServices clientServices;
@@ -29,7 +29,7 @@ public class ClientController {
         return ResponseEntity.ok().body(clientServices.list());
     }
 
-    @PostMapping
+    @PostMapping("/cadastro")
     public ResponseEntity<Client> save(@RequestBody Client client) {
         client.setEntry(LocalDate.now());
         return ResponseEntity.status(HttpStatus.CREATED).body(clientServices.save(client));
