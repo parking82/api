@@ -36,9 +36,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userServices.save(user));
     }
 
-    @GetMapping("/private")
-    public String privada() {
-        return "Rota privada: login foi efetuado!!";
+    @GetMapping("/user")
+    public String user() {
+        return "Rota user: você tem acesso aqui";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "Rota admin: você tem acesso aqui";
     }
 
 }
