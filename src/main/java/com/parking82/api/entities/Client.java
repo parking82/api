@@ -1,4 +1,4 @@
-package com.parking82.api.model;
+package com.parking82.api.entities;
 
 import java.time.LocalDate;
 

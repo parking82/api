@@ -4,24 +4,24 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.parking82.api.model.User;
-import com.parking82.api.respository.UserRespositorie;
+import com.parking82.api.entities.User;
+import com.parking82.api.respository.UserRespository;
 
 @Service
 public class UserServices {
 
-    private UserRespositorie userRespositorie;
+    private UserRespository userRespository;
 
-    public UserServices(UserRespositorie userRespositorie) {
-        this.userRespositorie = userRespositorie;
+    public UserServices(UserRespository userRespository) {
+        this.userRespository = userRespository;
     }
 
     public User save(User user) {
-        return userRespositorie.save(user);
+        return userRespository.save(user);
     }
 
     public List<User> list() {
-        return userRespositorie.findAll();
+        return userRespository.findAll();
     }
     
 }

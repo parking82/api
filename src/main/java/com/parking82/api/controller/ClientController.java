@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.parking82.api.model.Client;
+import com.parking82.api.entities.Client;
 import com.parking82.api.services.ClientServices;
 
 @RestController

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.parking82.api.model.Client;
+import com.parking82.api.entities.Client;
 import com.parking82.api.respository.ClientRepository;
 
 @Service
