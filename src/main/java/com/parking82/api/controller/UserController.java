@@ -31,19 +31,11 @@ public class UserController {
 
     @PostMapping("/cadastro")
     public ResponseEntity<User> save(@RequestBody User user) {
+
         user.setPassword(encoder.encode(user.getPassword()));
         user.setConfirmPassword(encoder.encode(user.getConfirmPassword()));
         return ResponseEntity.status(HttpStatus.CREATED).body(userServices.save(user));
-    }
 
-    @GetMapping("/user")
-    public String user() {
-        return "Rota user: você tem acesso aqui";
-    }
-
-    @GetMapping("/admin")
-    public String admin() {
-        return "Rota admin: você tem acesso aqui";
     }
 
 }

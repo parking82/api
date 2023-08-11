@@ -33,16 +33,27 @@ public class WebConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         return http.csrf().disable()
                 .authorizeHttpRequests(
                         authorizeConfig -> {
+
                             authorizeConfig.requestMatchers(HttpMethod.POST, "/usuario/cadastro").permitAll();
+                            authorizeConfig.requestMatchers(HttpMethod.GET, "/usuario/login").permitAll();
                             authorizeConfig.requestMatchers(HttpMethod.GET, "/usuario/admin").hasRole("ADMIN");
                             authorizeConfig.requestMatchers(HttpMethod.GET, "/usuario/user").hasRole("USER");
                             authorizeConfig.anyRequest().authenticated();
+
                         })
 
                 .formLogin()
+                .loginPage("/usuario/login")
+                .defaultSuccessUrl("/dashboard")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/usuario/login")
+                .permitAll()
                 .and().httpBasic()
                 .and().build();
 
