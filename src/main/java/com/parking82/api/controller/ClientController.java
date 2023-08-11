@@ -3,6 +3,7 @@ package com.parking82.api.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,4 +35,5 @@ public class ClientController {
         client.setEntry(LocalDate.now());
         return ResponseEntity.status(HttpStatus.CREATED).body(clientServices.save(client));
     }
+
 }
