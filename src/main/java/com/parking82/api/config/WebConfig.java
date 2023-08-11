@@ -37,7 +37,8 @@ public class WebConfig {
                 .authorizeHttpRequests(
                         authorizeConfig -> {
                             authorizeConfig.requestMatchers(HttpMethod.POST, "/usuario/cadastro").permitAll();
-                            authorizeConfig.requestMatchers(HttpMethod.GET, "/usuario").permitAll();
+                            authorizeConfig.requestMatchers(HttpMethod.GET, "/usuario/admin").hasRole("ADMIN");
+                            authorizeConfig.requestMatchers(HttpMethod.GET, "/usuario/user").hasRole("USER");
                             authorizeConfig.anyRequest().authenticated();
                         })
 
