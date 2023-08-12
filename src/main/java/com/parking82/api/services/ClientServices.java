@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.parking82.api.entities.Client;
 import com.parking82.api.respository.ClientRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ClientServices {
@@ -74,7 +75,7 @@ public class ClientServices {
 
         var vacancy = findById(client.getId());
         clientRepository.deleteById(client.getId());
-        vacancyRepository.save(vacancy);
+        vacancyRepository.deleteById(client.getId());
 
         return client;
     }
