@@ -1,7 +1,10 @@
 package com.parking82.api.entities;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,12 +20,14 @@ public class Client {
     private String name;
     private String vehicle;
     private String plate;
-    @DateTimeFormat(pattern = "dd/MM/yyy")
-    private LocalDate entry;
-    @DateTimeFormat(pattern = "dd/MM/yyy")
-    private LocalDate output;
-    private Double value;
-    private LocalDate period;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dateEntry;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dateExit;
+    private String hourEntry;
+    private String hourExit;
+    private String value;
+    private String period;
     @ManyToOne
     @JoinColumn(name = "vagancy_id")
     private Vacancy vacancy;

@@ -13,7 +13,7 @@ public class Vacancy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Boolean status;
+    private String status;
     private Integer vacancy = 0;
 
 }
