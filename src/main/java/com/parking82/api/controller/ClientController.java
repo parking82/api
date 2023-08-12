@@ -3,6 +3,7 @@ package com.parking82.api.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.parking82.api.respository.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class ClientController {
     
     private ClientServices clientServices;
 
+    @Autowired
+    private VacancyRepository vacancyRepository;
+
     public ClientController(ClientServices clientServices) {
         this.clientServices = clientServices;
     }
@@ -30,8 +34,9 @@ public class ClientController {
         return ResponseEntity.ok().body(clientServices.list());
     }
 
-    @PostMapping("/cadastro")
+    @PostMapping("/registrar")
     public ResponseEntity<Client> save(@RequestBody Client client) {
+        vacancyRepository.save(client.getVacancy());
         client.setEntry(LocalDate.now());
         return ResponseEntity.status(HttpStatus.CREATED).body(clientServices.save(client));
     }
