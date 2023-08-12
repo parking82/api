@@ -2,12 +2,9 @@ package com.parking82.api.entities;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
@@ -20,12 +17,14 @@ public class Client {
     private String name;
     private String vehicle;
     private String plate;
-    private Long vacancy;
     @DateTimeFormat(pattern = "dd/MM/yyy")
     private LocalDate entry;
     @DateTimeFormat(pattern = "dd/MM/yyy")
     private LocalDate output;
     private Double value;
     private LocalDate period;
+    @ManyToOne
+    @JoinColumn(name = "vagancy_id")
+    private Vacancy vacancy;
 
 }
