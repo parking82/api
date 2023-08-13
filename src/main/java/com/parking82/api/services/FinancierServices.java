@@ -1,25 +1,27 @@
 package com.parking82.api.services;
 
-import com.parking82.api.entities.Financier;
-import com.parking82.api.respository.FinancierRepository;
+import com.parking82.api.respository.PaymentRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class FinancierServices {
 
-    private FinancierRepository financierRepository;
+    private PaymentRepository paymentRepository;
 
-    public FinancierServices(FinancierRepository financierRepository) {
-        this.financierRepository = financierRepository;
+    public FinancierServices(PaymentRepository paymentRepository) {
+        this.paymentRepository = paymentRepository;
     }
 
-    public Financier earningDay() {
+    public Double sumDayPayment(String data) {
+        return paymentRepository.sumDayPayment(data);
+    }
 
-        LocalDate today = LocalDate.now();
+    public Double sumAllDate(String startDate, String endDate) {
+        return paymentRepository.sumAllDate(startDate, endDate);
+    }
 
-        return null;
+    public Double sumAll() {
+        return paymentRepository.sumAll();
     }
 
 }
