@@ -6,7 +6,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.parking82.api.entities.Payment;
 import com.parking82.api.entities.Vacancy;
+import com.parking82.api.respository.PaymentRepository;
 import com.parking82.api.respository.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,12 +25,17 @@ public class ClientServices {
     @Autowired
     private VacancyRepository vacancyRepository;
 
+    @Autowired
+    private PaymentRepository paymentRepository;
+
     public ClientServices(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     public Client save(Client client) {
+
         client.getVacancy().setStatus("Ocupada");
+
         return clientRepository.save(client);
     }
 
@@ -63,10 +70,12 @@ public class ClientServices {
         String totalFormatter = decimalFormat.format(total);
 
         if (interval.toMinutes() % 60 <= 300) {
-            client.setValue(7.0);
+            client.getPayment().setPayment(7.0);
         } else {
-            client.setValue(Double.parseDouble(totalFormatter));
+            client.getPayment().setPayment(Double.parseDouble(totalFormatter));
         }
+
+        paymentRepository.save(client.getPayment());
 
         return client;
     }

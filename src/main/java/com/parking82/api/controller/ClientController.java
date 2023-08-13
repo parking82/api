@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.parking82.api.entities.Payment;
+import com.parking82.api.respository.PaymentRepository;
 import com.parking82.api.respository.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class ClientController {
     @Autowired
     private VacancyRepository vacancyRepository;
 
+    @Autowired
+    private PaymentRepository paymentRepository;
+
     public ClientController(ClientServices clientServices) {
         this.clientServices = clientServices;
     }
@@ -35,8 +40,9 @@ public class ClientController {
     @PostMapping("/registrar")
     public ResponseEntity<Client> save(@RequestBody Client client) {
 
+        client.setDate(LocalDate.now());
         vacancyRepository.save(client.getVacancy());
-        client.setDateEntry(LocalDate.now());
+        paymentRepository.save(client.getPayment());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         client.setHourEntry(LocalTime.now().format(formatter));
@@ -64,6 +70,9 @@ public class ClientController {
 
         clientServices.quit(client);
 
+        client.getPayment().setDate(LocalDate.now().format(formatterDate));
+        paymentRepository.save(client.getPayment());
+
         return ResponseEntity.status(HttpStatus.OK).body("\t\t\t\t\t\t\t\t\t--------- RECIBO (PARKING 82) ---------\n\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\tDATA: " + LocalDate.now().format(formatterDate) +
                 "\n\n\t\t\t\t\tCLIENTE: " + client.getName() +
@@ -73,7 +82,7 @@ public class ClientController {
                 "\n\t\t\t\t\tENTRADA: " + client.getHourEntry() +
                 "\t\t\t\t\t\t\t\t\tSAÍDA: " + client.getHourExit() +
                 "\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\tPERMANÊNCIA: " + client.getPeriod() +
-                "\n\t\t\t\t\t\t\t\t\t\t\t\t Á PAGAR: R$ "+ client.getValue() +
+                "\n\t\t\t\t\t\t\t\t\t\t\t\t Á PAGAR: R$ "+ client.getPayment().getPayment() +
                 "\n\n\t\t\t\tCNPJ: 99.107.370/0001-90 - Contato (82) 98162-1126 - E-mail parking82@contato.com" +
                 "\n\t\t\t\t\t\t\t\tPaking 82 - Soluções em estacionamentos ©");
     }
