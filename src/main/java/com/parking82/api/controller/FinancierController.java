@@ -1,19 +1,15 @@
 package com.parking82.api.controller;
 
-import com.parking82.api.entities.Payment;
 import com.parking82.api.services.FinancierServices;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 @RestController
 @RequestMapping("/financeiro")
-public class EarningsController {
+public class FinancierController {
 
     private FinancierServices financierServices;
 
-    public EarningsController(FinancierServices financierServices) {
+    public FinancierController(FinancierServices financierServices) {
         this.financierServices = financierServices;
     }
 
