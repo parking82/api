@@ -63,9 +63,9 @@ public class ClientServices {
         String totalFormatter = decimalFormat.format(total);
 
         if (interval.toMinutes() % 60 <= 300) {
-            client.setValue("7.0");
+            client.setValue(7.0);
         } else {
-            client.setValue(totalFormatter);
+            client.setValue(Double.parseDouble(totalFormatter));
         }
 
         return client;

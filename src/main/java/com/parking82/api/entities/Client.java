@@ -26,7 +26,7 @@ public class Client {
     private LocalDate dateExit;
     private String hourEntry;
     private String hourExit;
-    private String value;
+    private Double value;
     private String period;
     @ManyToOne
     @JoinColumn(name = "vagancy_id")
