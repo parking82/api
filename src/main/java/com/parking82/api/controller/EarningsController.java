@@ -1,6 +1,6 @@
 package com.parking82.api.controller;
 
-import com.parking82.api.services.EarningsServices;
+import com.parking82.api.services.FinancierServices;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/financerio")
 public class EarningsController {
 
-    private EarningsServices earningsServices;
-    public EarningsController(EarningsServices earningsServices) {
-        this.earningsServices = earningsServices;
+    private FinancierServices financierServices;
+    public EarningsController(FinancierServices financierServices) {
+        this.financierServices = financierServices;
     }
 
 }

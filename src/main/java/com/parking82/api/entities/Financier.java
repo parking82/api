@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Earnings {
+public class Financier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
