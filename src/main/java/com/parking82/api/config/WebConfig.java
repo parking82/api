@@ -42,8 +42,6 @@ public class WebConfig {
 
                             authorizeConfig.requestMatchers(HttpMethod.POST, "/usuario/cadastro").permitAll();
                             authorizeConfig.requestMatchers(HttpMethod.GET, "/usuario/login").permitAll();
-                            authorizeConfig.requestMatchers(HttpMethod.GET, "/usuario/admin").hasRole("ADMIN");
-                            authorizeConfig.requestMatchers(HttpMethod.GET, "/usuario/user").hasRole("USER");
                             authorizeConfig.anyRequest().authenticated();
 
                         })
@@ -56,7 +54,6 @@ public class WebConfig {
                 .logout()
                 .logoutSuccessUrl("/usuario/login")
                 .permitAll()
-                
                 .and().httpBasic()
                 .and().build();
 
