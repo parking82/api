@@ -14,6 +14,6 @@ public class Vacancy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
-    private Integer vacancy = 0;
+    private Integer vacancy;
 
 }

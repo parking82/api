@@ -35,20 +35,26 @@ public class ClientServices {
     public Client save(Client client) {
 
         client.getVacancy().setStatus("Ocupada");
-
         return clientRepository.save(client);
+
     }
 
     public List<Client> list() {
+
         return clientRepository.findAll();
+
     }
 
     public Client findByPlate(String plate) {
+
         return clientRepository.findByPlate(plate);
+
     }
 
     public Vacancy findById(Long id) {
+
         return vacancyRepository.findById(id).get();
+
     }
 
     public Client quit(Client client) {
