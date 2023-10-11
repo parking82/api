@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Spot {
+public class Vaga {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
-    private Integer spot;
+    private Integer vaga;
 
 }

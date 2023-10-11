@@ -3,7 +3,6 @@ package com.parking82.api.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -12,16 +11,16 @@ import java.util.List;
 
 @Data
 @Entity
-public class User implements UserDetails {
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    private String nome;
     private String email;
     private String password;
-    private String confirmPassword;
+    private String confirmaPassword;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRole> roles = new ArrayList<>();

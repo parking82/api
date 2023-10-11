@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import com.parking82.api.entities.Spot;
+import com.parking82.api.entities.Vaga;
 import com.parking82.api.respository.PagamentoRepository;
 import com.parking82.api.respository.VagaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class ClienteServices {
 
     }
 
-    public Spot findById(Long id) {
+    public Vaga findById(Long id) {
 
         return vagaRepository.findById(id).get();
 

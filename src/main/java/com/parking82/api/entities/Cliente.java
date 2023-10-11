@@ -27,6 +27,6 @@ public class Cliente {
     private Pagamento pagamento;
     @ManyToOne
     @JoinColumn(name = "vagancy_id")
-    private Spot vaga;
+    private Vaga vaga;
 
 }

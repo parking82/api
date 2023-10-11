@@ -17,7 +17,7 @@ import com.parking82.api.services.ClienteServices;
 
 @RestController
 @RequestMapping("/clientes")
-public class ClientController {
+public class ClienteController {
     
     private ClienteServices clienteServices;
 
@@ -27,7 +27,7 @@ public class ClientController {
     @Autowired
     private PagamentoRepository pagamentoRepository;
 
-    public ClientController(ClienteServices clienteServices) {
+    public ClienteController(ClienteServices clienteServices) {
         this.clienteServices = clienteServices;
     }
 
