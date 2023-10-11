@@ -5,84 +5,83 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import com.parking82.api.entities.Payment;
-import com.parking82.api.respository.PaymentRepository;
-import com.parking82.api.respository.VacancyRepository;
+import com.parking82.api.respository.PagamentoRepository;
+import com.parking82.api.respository.VagaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.parking82.api.entities.Client;
-import com.parking82.api.services.ClientServices;
+import com.parking82.api.entities.Cliente;
+import com.parking82.api.services.ClienteServices;
 
 @RestController
 @RequestMapping("/clientes")
 public class ClientController {
     
-    private ClientServices clientServices;
+    private ClienteServices clienteServices;
 
     @Autowired
-    private VacancyRepository vacancyRepository;
+    private VagaRepository vagaRepository;
 
     @Autowired
-    private PaymentRepository paymentRepository;
+    private PagamentoRepository pagamentoRepository;
 
-    public ClientController(ClientServices clientServices) {
-        this.clientServices = clientServices;
+    public ClientController(ClienteServices clienteServices) {
+        this.clienteServices = clienteServices;
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> list() {
-        return ResponseEntity.ok().body(clientServices.list());
+    public ResponseEntity<List<Cliente>> listar() {
+        return ResponseEntity.ok().body(clienteServices.list());
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<Client> save(@RequestBody Client client) {
+    public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
 
-        client.setDate(LocalDate.now());
-        vacancyRepository.save(client.getVacancy());
-        paymentRepository.save(client.getPayment());
+        cliente.setData(LocalDate.now());
+        vagaRepository.save(cliente.getVaga());
+        pagamentoRepository.save(cliente.getPagamento());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        client.setHourEntry(LocalTime.now().format(formatter));
+        cliente.setHoraEntrada(LocalTime.now().format(formatter));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(clientServices.save(client));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteServices.save(cliente));
 
     }
 
-    @DeleteMapping("/fechar/{plate}")
-    public ResponseEntity<?> finallyPeriod(@PathVariable String plate) {
+    @DeleteMapping("/fechar/{placa}")
+    public ResponseEntity<?> finalizar(@PathVariable String placa) {
 
-        Client client = clientServices.findByPlate(plate);
+        Cliente cliente = clienteServices.findByPlate(placa);
 
-        if(client == null) {
+        if(cliente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado. Por favor, verifique a placa informada");
         }
 
-        clientServices.receipt(client);
+        clienteServices.recibo(cliente);
 
-        LocalDate date = LocalDate.now();
+        LocalDate data = LocalDate.now();
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "HH:mm");
 
-        client.setHourExit(LocalTime.now().format(formatter));
+        cliente.setHoraSaida(LocalTime.now().format(formatter));
 
-        clientServices.quit(client);
+        clienteServices.saida(cliente);
 
-        client.getPayment().setDate(LocalDate.now().format(formatterDate));
-        paymentRepository.save(client.getPayment());
+        cliente.getPagamento().setData(LocalDate.now().format(formatterDate));
+        pagamentoRepository.save(cliente.getPagamento());
 
         return ResponseEntity.status(HttpStatus.OK).body("\t\t\t\t\t\t\t\t\t--------- RECIBO (PARKING 82) ---------\n\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\tDATA: " + LocalDate.now().format(formatterDate) +
-                "\n\n\t\t\t\t\tCLIENTE: " + client.getName() +
-                "\t\t\t\t\t\tVEÍCULO: " + client.getVehicle() +
-                "\n\t\t\t\t\tPLACA: " + client.getPlate() +
-                "\t\t\t\t\t\t\t\t\tVAGA: " + client.getVacancy().getVacancy() +
-                "\n\t\t\t\t\tENTRADA: " + client.getHourEntry() +
-                "\t\t\t\t\t\t\t\t\tSAÍDA: " + client.getHourExit() +
-                "\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\tPERMANÊNCIA: " + client.getPeriod() +
-                "\n\t\t\t\t\t\t\t\t\t\t\t\t Á PAGAR: R$ "+ client.getPayment().getPayment() +
+                "\n\n\t\t\t\t\tCLIENTE: " + cliente.getNome() +
+                "\t\t\t\t\t\tVEÍCULO: " + cliente.getVeiculo() +
+                "\n\t\t\t\t\tPLACA: " + cliente.getPlaca() +
+                "\t\t\t\t\t\t\t\t\tVAGA: " + cliente.getVaga().getSpot() +
+                "\n\t\t\t\t\tENTRADA: " + cliente.getHoraEntrada() +
+                "\t\t\t\t\t\t\t\t\tSAÍDA: " + cliente.getHoraSaida() +
+                "\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\tPERMANÊNCIA: " + cliente.getPeriodo() +
+                "\n\t\t\t\t\t\t\t\t\t\t\t\t Á PAGAR: R$ "+ cliente.getPagamento().getPagamento() +
                 "\n\n\t\t\t\tCNPJ: 99.107.370/0001-90 - Contato (82) 98162-1126 - E-mail parking82@contato.com" +
                 "\n\t\t\t\t\t\t\t\tPaking 82 - Soluções em estacionamentos ©");
     }

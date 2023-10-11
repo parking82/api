@@ -1,10 +1,10 @@
 package com.parking82.api.respository;
 
-import com.parking82.api.entities.Payment;
+import com.parking82.api.entities.Pagamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface PaymentRepository extends JpaRepository<Payment, Long> {
+public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
 
     @Query("SELECT SUM(t.payment) FROM Payment t WHERE t.date = :data")
     Double sumDayPayment(String data);

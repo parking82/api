@@ -9,24 +9,24 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Client {
+public class Cliente {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String vehicle;
-    private String plate;
+    private String nome;
+    private String veiculo;
+    private String placa;
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate date;
-    private String hourEntry;
-    private String hourExit;
-    private String period;
+    private LocalDate data;
+    private String horaEntrada;
+    private String horaSaida;
+    private String periodo;
     @ManyToOne
     @JoinColumn(name = "payment_id")
-    private Payment payment;
+    private Pagamento pagamento;
     @ManyToOne
     @JoinColumn(name = "vagancy_id")
-    private Vacancy vacancy;
+    private Spot vaga;
 
 }

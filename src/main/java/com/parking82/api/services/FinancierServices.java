@@ -1,14 +1,14 @@
 package com.parking82.api.services;
 
-import com.parking82.api.respository.PaymentRepository;
+import com.parking82.api.respository.PagamentoRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FinancierServices {
 
-    private PaymentRepository paymentRepository;
+    private PagamentoRepository paymentRepository;
 
-    public FinancierServices(PaymentRepository paymentRepository) {
+    public FinancierServices(PagamentoRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
     }
 
